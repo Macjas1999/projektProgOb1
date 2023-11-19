@@ -14,16 +14,6 @@ namespace MainContainer
                 parkingPlaces[i] = new ParkingPlace(i+1);
             }
 
-            //Console.WriteLine(map.placeLocationOnMap[1][0]);
-            //Console.WriteLine(map.mapImg[map.locOnMap[1][0],map.locOnMap[1][1]]);
-
-            // program.displayMain();
-            // parkingPlaces[1].reserve(map);
-            // parkingPlaces[2].reserve(map);
-            // parkingPlaces[12].reserve(map);
-            // parkingPlaces[13].reserve(map);
-            // Console.Clear();
-            // program.displayMain();
             Console.Clear();
             bool run = true;
             while (run)
@@ -141,7 +131,6 @@ namespace MainContainer
                                     {"#|","  |","  |","  |","  |","  |","  |","  |","  |","  |","  |","   ","   ","#\n"},
                                     {"#|","33|","34|","35|","36|","37|","38|","39|","40|","41|","42|","   ","   ","#\n"},
                                     {"##","###","###","###","###","###","###","###","###","###","###","###","###","#\n"}};
-        //public IDictionary<int, int[]> placeLocationOnMap;
         private IDictionary<int, int[]> locOnMap = new Dictionary<int, int[]>()
         {
             {1, new int[]{2,1}},
@@ -207,6 +196,7 @@ namespace MainContainer
         {
             return this.locOnMap;
         }
+
         public void changeToX(int slot)
         {
             this.mapImg[this.locOnMap[slot][0],this.locOnMap[slot][1]] = "XX|";
@@ -215,6 +205,7 @@ namespace MainContainer
         {
             this.mapImg[this.locOnMap[slot][0],this.locOnMap[slot][1]] = "  |";
         }
+
         public void clearAll()
         {
             for (int i = 1; i < 43; i++)
@@ -222,7 +213,6 @@ namespace MainContainer
                 this.mapImg[this.locOnMap[i][0],this.locOnMap[i][1]] = "  |";
             }
         }
-    
     }
     class ParkingPlace
     {
@@ -238,6 +228,7 @@ namespace MainContainer
             this.timeReleased = DateTime.Now;
             this.timeReserved = DateTime.Now;
         }
+
         public bool getIsFull(){
             return this.isFull;
         }
@@ -249,6 +240,7 @@ namespace MainContainer
         {
             return this.timeReleased;
         }
+
         public void reserve(Map map){
             map.changeToX(this.number);
             this.isFull = true;
