@@ -1,0 +1,1 @@
+mcs MapTemplate.cs ParkingPlace.cs MainControl.cs -out:main.exe main.cs
