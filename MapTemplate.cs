@@ -9,15 +9,32 @@ namespace MapTemplate
         private string[,] mapImg;
         private int[] indexLen;
         private int[] yValues;
-        private int[] numberSpaceDraw;
+        private int[] spaceNumDrawPos;
         private IDictionary<int, int[]> locOnMap = new Dictionary<int, int[]>();
 
-        public Map(int xLen, int ylen)
+        //#testing
+        // public Map() //assuming 62 places
+        // {
+        //     this.mapImg = new string[20,14];
+        //     this.indexLen = new int[] {12,10,10,10,10,10};
+        //     this.yValues = new int[] {2,5,8,11,14,17};
+        //     this.spaceNumDrawPos = new int[] {-1,-1,-1,-1,-1,-1};            
+        // }
+        // public Map() //assuming 62 places
+        // {
+        //     this.mapImg = new string[17,14];
+        //     this.indexLen = new int[] {12,10,10,10,10,10};
+        //     this.yValues = new int[] {2,4,7,9,12,14};
+        //     this.spaceNumDrawPos = new int[] {-1,1,-1,1,-1,1};            
+        // }
+        //#!testing
+
+        public Map(int yLen, int xlen, int[] indexLenIN, int[] yValuesIN, int[] spaceNumDrawPosIN)
         {
-            this.mapImg = new string[xLen,ylen];
-            this.indexLen = new int[] {12,10,10,10,10,10};
-            this.yValues = new int[] {2,4,7,9,12,14};
-            this.numberSpaceDraw = new int[] {-1,1,-1,1,-1,1};            
+            this.mapImg = new string[yLen,xlen];
+            this.indexLen = indexLenIN;
+            this.yValues = yValuesIN;
+            this.spaceNumDrawPos = spaceNumDrawPosIN;            
         }
 
         public void makeFrame()
@@ -78,11 +95,11 @@ namespace MapTemplate
             this.mapImg[yPos,xPos] = "  |";
             if (index < 10)
             {
-                this.mapImg[yPos+this.numberSpaceDraw[extend], xPos] = $" {index}|";    
+                this.mapImg[yPos+this.spaceNumDrawPos[extend], xPos] = $" {index}|";    
             }
             else
             {
-                this.mapImg[yPos+this.numberSpaceDraw[extend], xPos] = $"{index}|";
+                this.mapImg[yPos+this.spaceNumDrawPos[extend], xPos] = $"{index}|";
             }
         }
 
@@ -114,14 +131,14 @@ namespace MapTemplate
 
         public void clearAll()
         {
-            for (int i = 1; i < 43; i++)
+            for (int i = 1; i < this.locOnMap.Count+1; i++)
             {
                 this.mapImg[this.locOnMap[i][0],this.locOnMap[i][1]] = "  |";
             }
         }
         public void displayDict()
         {
-            for (int i = 1; i < 43; i++)
+            for (int i = 1; i < this.locOnMap.Count+1; i++)
             {
                 Console.WriteLine($"{i};{this.locOnMap[i][0]};{this.locOnMap[i][1]}");
             }

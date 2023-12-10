@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MapTemplate;
 using MainControlNamespace;
 using ParkingPlaceNamespace;
+using MapCreatorNamespace;
 using System.IO;
 
 namespace MainContainer
@@ -11,11 +12,14 @@ namespace MainContainer
     {
         static void Main(string[] args)
         {
-            Map map = new Map(17,14);
+            MapCreator mapCreator = new MapCreator();
+            mapCreator.setupParams();
+            Map map = new Map(mapCreator.YAxis, mapCreator.XAxis, mapCreator.IndexLen, mapCreator.yValues, mapCreator.spaceNumDrawPos);
+
             MainControl ctrl = new MainControl();
             map.makeFrame();
-            map.fillDictionary(62);
-            ParkingPlace[] parkingPlaces = new ParkingPlace[62];
+            map.fillDictionary(mapCreator.numOfSpaces);
+            ParkingPlace[] parkingPlaces = new ParkingPlace[mapCreator.numOfSpaces];
 
             for (int i = 0; i < parkingPlaces.Length; i++)
             {
@@ -34,10 +38,10 @@ namespace MainContainer
                 Console.WriteLine("To chek reserve time type \"tin\"");
                 Console.WriteLine("To exit type \"exit\"");
 
-
                 string userInput = Console.ReadLine();
                 switch (userInput)
                 {
+
                     case "res":
                         ctrl.resOption(map, parkingPlaces, userInput);
                         break;

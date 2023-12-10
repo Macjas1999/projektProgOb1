@@ -1,1 +1,3 @@
 mcs MapTemplate.cs ParkingPlace.cs MainControl.cs -out:main.exe main.cs
+
+mcs MapTemplate.cs ParkingPlace.cs MainControl.cs MapCreator.cs -out:main.exe main.cs
