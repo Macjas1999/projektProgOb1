@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using MapTemplate;
 using ParkingPlaceNamespace;
+using MapCreatorNamespace;
 
 namespace MainControlNamespace
 {

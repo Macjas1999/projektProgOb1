@@ -47,11 +47,21 @@ namespace MapCreatorNamespace
             try
             {
                 Console.WriteLine("Provide number of parking spaces in rows");
+
                 for (int i = 0; i < this.rowCount; i++)
                 {
                     Console.Write($"Row nr {i+1}: ");
-                    userInput = Console.ReadLine();
-                    this.IndexLen[i] = int.Parse(userInput);
+                    try
+                    {
+                        userInput = Console.ReadLine();
+                        this.IndexLen[i] = int.Parse(userInput);
+                    }
+                    catch (System.Exception)
+                    {
+                        Console.WriteLine("Invalid input.\nPress any key to reenter value");
+                        userInput = Console.ReadLine();
+                        i = i -1;
+                    }
                 }
                 this.XAxis = this.IndexLen.Max() +2;
                 for (int i = 0; i < this.rowCount; i++)
@@ -96,7 +106,20 @@ namespace MapCreatorNamespace
         }
         public void calculateBtB()
         {
-            this.YAxis = this.rowCount*3;
+            int sub = 0;
+            for (int i = 6; i <= this.rowCount+2; i=i+2)
+            {
+                if (this.rowCount < i)
+                {
+                    this.YAxis = this.rowCount*3 - sub;
+                    break;
+                }
+                else
+                {
+                    ++sub;
+                }   
+            }
+
             int value = 2;
             int toAdd = 2;
             int space = -1;

@@ -6,11 +6,11 @@ namespace MapTemplate
 {
     public class Map
     {
-        private string[,] mapImg;
-        private int[] indexLen;
-        private int[] yValues;
-        private int[] spaceNumDrawPos;
-        private IDictionary<int, int[]> locOnMap = new Dictionary<int, int[]>();
+        protected string[,] mapImg;
+        protected int[] indexLen;
+        protected int[] yValues;
+        protected int[] spaceNumDrawPos;
+        protected IDictionary<int, int[]> locOnMap = new Dictionary<int, int[]>();
 
         //#testing
         // public Map() //assuming 62 places
@@ -29,6 +29,8 @@ namespace MapTemplate
         // }
         //#!testing
 
+        public Map()
+        {}
         public Map(int yLen, int xlen, int[] indexLenIN, int[] yValuesIN, int[] spaceNumDrawPosIN)
         {
             this.mapImg = new string[yLen,xlen];
@@ -37,7 +39,7 @@ namespace MapTemplate
             this.spaceNumDrawPos = spaceNumDrawPosIN;            
         }
 
-        public void makeFrame()
+        public virtual void makeFrame()
         {
             int iLimit = this.mapImg.GetLength(0);
             int jLimit = this.mapImg.GetLength(1);
@@ -90,7 +92,7 @@ namespace MapTemplate
                 }
             }
         }
-        public void fillMapWSlots(int index, int xPos, int yPos, int extend)
+        public virtual void fillMapWSlots(int index, int xPos, int yPos, int extend)
         {
             this.mapImg[yPos,xPos] = "  |";
             if (index < 10)
@@ -120,16 +122,16 @@ namespace MapTemplate
             return this.locOnMap;
         }
 
-        public void changeToX(int slot)
+        public virtual void changeToX(int slot)
         {
             this.mapImg[this.locOnMap[slot][0],this.locOnMap[slot][1]] = "XX|";
         }
-        public void changeToEmpty(int slot)
+        public virtual void changeToEmpty(int slot)
         {
             this.mapImg[this.locOnMap[slot][0],this.locOnMap[slot][1]] = "  |";
         }
 
-        public void clearAll()
+        public virtual void clearAll()
         {
             for (int i = 1; i < this.locOnMap.Count+1; i++)
             {
@@ -141,6 +143,84 @@ namespace MapTemplate
             for (int i = 1; i < this.locOnMap.Count+1; i++)
             {
                 Console.WriteLine($"{i};{this.locOnMap[i][0]};{this.locOnMap[i][1]}");
+            }
+        }
+    }
+
+    public class BigMap : Map
+    {
+        public BigMap()
+        {}
+        public BigMap(int yLen, int xlen, int[] indexLenIN, int[] yValuesIN, int[] spaceNumDrawPosIN)
+        //public BigMap()
+        {
+            this.mapImg = new string[yLen,xlen];
+            this.indexLen = indexLenIN;
+            this.yValues = yValuesIN;
+            this.spaceNumDrawPos = spaceNumDrawPosIN;            
+        }
+
+        public override void makeFrame()
+        {
+            int iLimit = this.mapImg.GetLength(0);
+            int jLimit = this.mapImg.GetLength(1);
+            for (int i = 0; i < iLimit; i++)
+            {
+                for (int j = 0; j < jLimit; j++)
+                {
+                    if(j == 0)
+                    {
+                        this.mapImg[i,j] = "#";
+                    }
+                    else if(i == 0 && j >= 0 && j < jLimit-1)
+                    {
+                        this.mapImg[i,j] = "####";
+                    }
+                    else if(i == iLimit-1 && j < jLimit-1)
+                    {
+                        this.mapImg[i,j] = "####";
+                    }
+                    else if(j == jLimit-1)
+                    {
+                        this.mapImg[i,j] = "#\n";
+                    }
+                    else
+                    {
+                        this.mapImg[i,j] = "    ";
+                    }
+                }
+            }
+        }
+        public override void fillMapWSlots(int index, int xPos, int yPos, int extend)
+        {
+            this.mapImg[yPos,xPos] = "   |";
+            if (index < 10)
+            {
+                this.mapImg[yPos+this.spaceNumDrawPos[extend], xPos] = $"  {index}|";    
+            }
+            else if (index < 100)
+            {
+                this.mapImg[yPos+this.spaceNumDrawPos[extend], xPos] = $" {index}|";    
+            }
+            else
+            {
+                this.mapImg[yPos+this.spaceNumDrawPos[extend], xPos] = $"{index}|";
+            }
+        }
+        public override void changeToX(int slot)
+        {
+            this.mapImg[this.locOnMap[slot][0],this.locOnMap[slot][1]] = "XXX|";
+        }
+        public override void changeToEmpty(int slot)
+        {
+            this.mapImg[this.locOnMap[slot][0],this.locOnMap[slot][1]] = "   |";
+        }
+
+        public override void clearAll()
+        {
+            for (int i = 1; i < this.locOnMap.Count+1; i++)
+            {
+                this.mapImg[this.locOnMap[i][0],this.locOnMap[i][1]] = "   |";
             }
         }
     }
