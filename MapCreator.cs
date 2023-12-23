@@ -24,20 +24,36 @@ namespace MapCreatorNamespace
 
         public MapCreator()
         {
-            try
+            while (true)
             {
-                Console.WriteLine("How many rows of parking spaces you wish to create");
-                string userInput = Console.ReadLine();
-                this.rowCount = int.Parse(userInput);
+                string userInput;
+                try
+                {
+                    Console.WriteLine("How many rows of parking spaces you wish to create");
 
-                this.IndexLen = new int[rowCount];
-                this.yValues = new int[rowCount];
-                this.spaceNumDrawPos = new int[rowCount];
+                    userInput = Console.ReadLine();
+                    this.rowCount = int.Parse(userInput);
 
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Invalid input. Please enter a valid integer.");
+                    this.IndexLen = new int[rowCount];
+                    this.yValues = new int[rowCount];
+                    this.spaceNumDrawPos = new int[rowCount];
+                    break;
+
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid integer.\nPress enter to retry");
+                    userInput = Console.ReadLine();
+                    continue;
+
+                }
+                catch (System.ArgumentNullException)
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid integer.\nPress enter to retry");
+                    userInput = Console.ReadLine();
+                    continue;
+
+                }
             }
 
         }
@@ -106,12 +122,13 @@ namespace MapCreatorNamespace
         }
         public void calculateBtB()
         {
+            //i was originaly set to 6 for whatever reason
             int sub = 0;
-            for (int i = 6; i <= this.rowCount+2; i=i+2)
+            for (int i = 4; i <= this.rowCount+2; i=i+2)
             {
                 if (this.rowCount < i)
                 {
-                    this.YAxis = this.rowCount*3 - sub;
+                    this.YAxis = this.rowCount*3 - sub +1;
                     break;
                 }
                 else

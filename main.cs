@@ -17,7 +17,7 @@ namespace MainContainer
             {
                 MapCreator mapCreator = new MapCreator();
                 mapCreator.setupParams();
-                
+            
                 ParkingPlace[] parkingPlaces;
                 Map map;
 
@@ -44,11 +44,6 @@ namespace MainContainer
                 MainControl ctrl = new MainControl();
                 map.makeFrame();
                 map.fillDictionary(mapCreator.numOfSpaces);
-
-                // for (int i = 0; i < parkingPlaces.Length; i++)
-                // {
-                //     parkingPlaces[i] = new ParkingPlace(i+1);
-                // }
 
                 Console.Clear();
                 bool run = true;
