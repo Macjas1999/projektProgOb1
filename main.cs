@@ -41,9 +41,10 @@ namespace MainContainer
                 }
                 //Map map = new Map(mapCreator.YAxis, mapCreator.XAxis, mapCreator.IndexLen, mapCreator.yValues, mapCreator.spaceNumDrawPos);
 
-                MainControl ctrl = new MainControl();
                 map.makeFrame();
                 map.fillDictionary(mapCreator.numOfSpaces);
+
+                MainControl ctrl = new MainControl(map, parkingPlaces);
 
                 Console.Clear();
                 bool run = true;
@@ -63,16 +64,16 @@ namespace MainContainer
                     {
 
                         case "res":
-                            ctrl.resOption(map, parkingPlaces, userInput);
+                            ctrl.resOption();
                             break;
                         case "emp":
-                            ctrl.empOption(map, parkingPlaces, userInput);
+                            ctrl.empOption();
                             break;
                         case "tout":
-                            ctrl.toutOption(map, parkingPlaces, userInput);
+                            ctrl.toutOption();
                             break;
                         case "tin":
-                            ctrl.tinOption(map, parkingPlaces, userInput);
+                            ctrl.tinOption();
                             break;
                         case "new":
                             run = false;
